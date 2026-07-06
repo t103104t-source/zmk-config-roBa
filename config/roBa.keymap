@@ -73,6 +73,13 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
         };
+
+        inc_dec_msc: inc_dec_msc {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            label = "ENCODER_MOUSE_SCROLL";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+        };
     };
 
     keymap {
@@ -86,7 +93,7 @@
 &mo 1  &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 1 INT_HENKAN  &lt 3 LANG_ZENKAKUHANKAKU  &lt_to_layer_0 2 SPACE      &kp BACKSPACE    &mt RIGHT_CONTROL ENTER                             &kp DEL
             >;
 
-            sensor-bindings = <&inc_dec_kp K_SCROLL_DOWN K_SCROLL_UP>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         FUNCTION {
@@ -115,7 +122,7 @@
 &trans          &trans                  &trans        &trans                   &trans  &trans      &trans  &trans                                 &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         MOUSE {
@@ -153,7 +160,7 @@
 &kp LCTRL  &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 1 INT_HENKAN  &lt 3 LANG_ZENKAKUHANKAKU  &lt_to_layer_0 2 SPACE      &kp BACKSPACE    &lt 4 ENTER                             &kp DEL
             >;
 
-            sensor-bindings = <&inc_dec_kp K_SCROLL_DOWN K_SCROLL_UP>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
     };
 };
