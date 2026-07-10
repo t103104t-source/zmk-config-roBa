@@ -1,10 +1,14 @@
+// 右側シールド用の共通デバイスツリー設定を読み込む。
 #include "roBa.dtsi"
 
+// 右側はマトリクスの 6 列目以降として扱う。
 &default_transform {
     col-offset = <6>;
 };
 
+// 右側で使う列ピンを指定する。
 &kscan0 {
+        // 右手側の 5 列を XIAO の各 GPIO に接続する。
         col-gpios
             = <&xiao_d 10 GPIO_ACTIVE_HIGH>
             , <&xiao_d 9 GPIO_ACTIVE_HIGH>
@@ -15,6 +19,7 @@
 };
 
 / {
+    // トラックボールの入力を ZMK の入力イベントへ渡す。
     trackball_listener {
         status = "okay";
         compatible = "zmk,input-listener";
@@ -22,40 +27,60 @@
     };
 };
 
+// SPI0 に使うピン設定。
 &pinctrl {
+    // 通常動作時の SPI ピン。
     spi0_default: spi0_default {
         group1 {
+            // SCK、MOSI、MISO のピン割り当て。
             psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
                 <NRF_PSEL(SPIM_MOSI, 0, 4)>,
                 <NRF_PSEL(SPIM_MISO, 0, 4)>;
         };
     };
 
+    // スリープ時の SPI ピン。
     spi0_sleep: spi0_sleep {
         group1 {
+            // スリープ時も同じ SPI ピンを使う。
             psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
                 <NRF_PSEL(SPIM_MOSI, 0, 4)>,
                 <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            // 省電力設定を有効にする。
             low-power-enable;
         };
     };
 };
 
+// 分離通信では使わない UART を無効にする。
 &xiao_serial { status = "disabled"; };
 
+// PMW3610 トラックボール用に SPI0 を有効化する。
 &spi0 {
+    // SPI0 を使用可能にする。
     status = "okay";
+    // nRF の SPIM ドライバを使う。
     compatible = "nordic,nrf-spim";
+    // 通常動作用のピン設定。
     pinctrl-0 = <&spi0_default>;
+    // スリープ用のピン設定。
     pinctrl-1 = <&spi0_sleep>;
+    // pinctrl の状態名。
     pinctrl-names = "default", "sleep";
+    // チップセレクトは P0.09、Low で有効。
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 
+    // SPI 接続の PMW3610 トラックボール。
     trackball: trackball@0 {
+        // トラックボールを有効にする。
         status = "okay";
+        // PMW3610 ドライバを使う。
         compatible = "pixart,pmw3610";
+        // SPI バス上のデバイス番号。
         reg = <0>;
+        // SPI 通信速度の上限。
         spi-max-frequency = <2000000>;
+        // 割り込みピンは P0.02、Low で有効、プルアップあり。
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };

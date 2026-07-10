@@ -1,6 +1,9 @@
+// 左側シールド用の共通デバイスツリー設定を読み込む。
 #include "roBa.dtsi"
 
+// 左側で使う列ピンを指定する。
 &kscan0 {
+        // 左手側の 6 列を XIAO の各 GPIO に接続する。
         col-gpios
             = <&xiao_d 10 GPIO_ACTIVE_HIGH>
             , <&xiao_d 9 GPIO_ACTIVE_HIGH> 
@@ -11,8 +14,10 @@
             ;
 };
 
+// 左側のロータリーエンコーダーを有効にする。
 &left_encoder {
     status = "okay";
 };
 
+// 分離通信では使わない UART を無効にする。
 &xiao_serial { status = "disabled"; };

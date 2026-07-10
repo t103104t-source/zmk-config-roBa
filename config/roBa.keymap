@@ -1,19 +1,32 @@
+// ZMK の標準ビヘイビア（タップ・ホールドなど）を読み込む。
 #include <behaviors.dtsi>
+// Bluetooth 接続先を切り替えるキーコードを読み込む。
 #include <dt-bindings/zmk/bt.h>
+// 通常のキーコードと修飾キーの定義を読み込む。
 #include <dt-bindings/zmk/keys.h>
+// ポインティングデバイス（トラックボール）の定義を読み込む。
 #include <dt-bindings/zmk/pointing.h>
 
+// 修飾キーを長押し／タップで兼用する際の判定を調整する。
 &mt {
+    // タップとホールドの中間的な判定を使う。
     flavor = "balanced";
+    // 連続タップをホールドとして扱わない。
     quick-tap-ms = <0>;
 };
 
+// トラックボールのレイヤー連動設定。
 &trackball {
+    // マウス移動時に自動で有効にするレイヤー（MOUSE = 4）。
     automouse-layer = <4>;
+    // このレイヤー（SCROLL = 5）では移動をスクロールとして扱う。
     scroll-layers = <5>;
 
+    // 矢印キーでポインタを動かす設定例（現在は無効）。
     // arrows {
+    //     // この設定を有効にするレイヤー（ARROW = 3）。
     //     layers = <3>;
+    //     // 右・左・上・下の移動キーを順に指定する。
     //     bindings =
     //         <&kp RIGHT_ARROW>,
     //         <&kp LEFT_ARROW>,
@@ -26,125 +39,185 @@
 };
 
 / {
+    // 2キー同時押しで別のキーを送るコンボ定義。
     combos {
+        // ZMK のコンボ機能を使う。
         compatible = "zmk,combos";
 
+        // 位置 11 + 12 の同時押しで Tab。
         tab {
             bindings = <&kp TAB>;
             key-positions = <11 12>;
         };
 
+        // 位置 12 + 13 の同時押しで Shift + Tab。
         shift_tab {
             bindings = <&kp LS(TAB)>;
             key-positions = <12 13>;
         };
 
+        // 位置 11 + 10 の同時押しで、無変換を送った後にレイヤー 0 へ戻る。
         muhennkann {
             bindings = <&to_layer_0 INT_MUHENKAN>;
             key-positions = <11 10>;
         };
 
+        // 位置 20 + 21 の同時押しでダブルクォーテーション。
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
         };
 
+        // 位置 24 + 25 の同時押しでイコール。
         eq {
             bindings = <&kp EQUAL>;
             key-positions = <24 25>;
         };
     };
 
+    // 他のビヘイビアから呼ぶ、レイヤー復帰用マクロ。
     macros {
+        // 引数のキーを送る前にレイヤー 0（default_layer）へ戻る。
         to_layer_0: to_layer_0 {
+            // 1引数を受け取るマクロとして登録する。
             compatible = "zmk,behavior-macro-one-param";
+            // 呼び出し時にキーコードを1つ受け取る。
             #binding-cells = <1>;
+            // レイヤー 0 へ移動してから、受け取ったキーを送る。
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
+            // ZMK Studio 等に表示する名前。
             label = "TO_LAYER_0";
         };
     };
 
+    // キーに割り当てる独自ビヘイビア。
     behaviors {
+        // 長押し時は指定レイヤーを有効化、タップ時はレイヤー 0 復帰後に指定キーを送る。
         lt_to_layer_0: lt_to_layer_0 {
+            // ホールド／タップ複合ビヘイビアを使う。
             compatible = "zmk,behavior-hold-tap";
+            // ZMK Studio 等に表示する名前。
             label = "LAYER_TAP_TO_0";
+            // ホールド時は &mo、タップ時は上記の復帰マクロを実行する。
             bindings = <&mo>, <&to_layer_0>;
 
+            // 呼び出し時に「レイヤー番号」と「タップ時のキー」を受け取る。
             #binding-cells = <2>;
+            // 200 ms 以内に離せばタップとして扱う。
             tapping-term-ms = <200>;
         };
 
+        // エンコーダーの回転を、通常時はマウススクロールに割り当てる。
         inc_dec_msc: inc_dec_msc {
+            // センサー回転量に応じて別ビヘイビアを実行する。
             compatible = "zmk,behavior-sensor-rotate-var";
+            // ZMK Studio 等に表示する名前。
             label = "ENCODER_MOUSE_SCROLL";
+            // 回転方向ごとに2つの引数を受け取る。
             #sensor-binding-cells = <2>;
+            // 逆方向／順方向ともにマウススクロールを実行する。
             bindings = <&msc>, <&msc>;
 
+            // 1回の回転後、30 ms の間に追加入力をまとめる。
             tap-ms = <30>;
         };
     };
 
+    // レイヤーごとのキー配置。各行は左端から右端までの物理キー順。
     keymap {
+        // ZMK のキーマップ機能を使う。
         compatible = "zmk,keymap";
 
+        // レイヤー 0: 通常入力用の基本レイヤー。
         default_layer {
+            // 1段目: QWERTY と右手の Y〜P。
             bindings = <
 &kp Q  &kp W         &kp E         &kp R                        &kp T                                                                 &kp Y                    &kp U  &lt 5 I    &kp O    &kp P
+// 2段目: ASDFG と H〜';'。左手中指は Cmd+Shift+S、右手人差し指は '-'。
 &kp A  &kp S         &kp D         &kp F                        &kp G        &kp LS(LG(S))               &kp MINUS                    &kp H                    &kp J  &kp K      &kp L    &kp SQT
+// 3段目: ZXCVB と N〜/。中央2キーは左右 Shift。
 &kp Z  &kp X         &kp C         &kp V                        &kp B        &kp LEFT_SHIFT              &kp RIGHT_SHIFT              &kp N                    &kp M  &kp COMMA  &kp DOT  &kp SLASH
+// 親指列: FUNCTION、OS修飾、レイヤー切替／日本語入力、Space、Ctrl/BS、Ctrl/Enter、Del。
 &mo 1  &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 1 INT_HENKAN  &lt 3 GRAVE  &lt_to_layer_0 2 SPACE      &mt RIGHT_CONTROL BACKSPACE  &mt RIGHT_CONTROL ENTER                             &kp DEL
             >;
 
+            // 左右エンコーダー: 逆回転／順回転をスクロール上／下にする。
             sensor-bindings =
                 <&inc_dec_msc SCRL_DOWN SCRL_UP>,
                 <&inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
+        // レイヤー 1: FUNCTION。&mo 1 を押している間だけ有効。
         FUNCTION {
+            // 1段目: 右手側に F1〜F5。
             bindings = <
 &trans  &trans  &trans  &trans  &trans                       &kp F1  &kp F2  &kp F3  &kp F4  &kp F5
+// 2段目: 右手側に F13 と F6〜F10。
 &trans  &trans  &trans  &trans  &trans  &trans      &kp F13  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+// 3段目: 最右端に F11。
 &trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans  &trans  &trans  &trans  &kp F11
+// 親指列: 最右端に F12、ほかは下位レイヤーをそのまま使う。
 &trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans                          &kp F12
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
 
+        // レイヤー 2: NUM。Space の長押し中に有効。
         NUM {
+            // 1段目: テンキー上段と記号。
             bindings = <
 &kp SLASH     &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS                                  &kp CARET         &kp AMPERSAND      &kp TILDE       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
+// 2段目: テンキー中段と記号。&none は何も送らず、&trans は下位レイヤーを使う。
 &kp NUMBER_0  &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS  &none          &kp UNDERSCORE  &kp EXCLAMATION   &kp AT_SIGN        &kp HASH        &kp DOLLAR            &kp PERCENT
+// 3段目: テンキー下段と括弧／バックスラッシュ。
 &kp PERIOD    &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &kp EQUAL      &trans          &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
+// 親指列: 比較記号とパイプ。&trans は下位レイヤーを使う。
 &trans        &kp LESS_THAN  &kp GT        &trans        &trans     &trans         &trans          &trans                                                                     &kp PIPE
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
 
+        // レイヤー 3: ARROW。Grave の長押し中に有効。
         ARROW {
+            // 1段目: Esc、ウィンドウ／タブ切替。&none は無効キー。
             bindings = <
 &kp ESCAPE  &kp LC(LS(TAB))  &none   &kp LC(TAB)  &trans                      &trans    &trans    &trans  &trans     &trans
+// 2段目: Home と右手側の左右上下キー。
 &kp HOME    &none            &none   &none        &none   &none       &trans  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans
+// 3段目: すべて無効または下位レイヤーを使用。
 &none       &none            &trans  &none        &trans  &trans      &trans  &trans    &trans    &trans  &trans     &trans
+// 親指列: すべて下位レイヤーを使用。
 &trans      &trans           &trans  &trans       &trans  &trans      &trans  &trans                                 &trans
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
 
+        // レイヤー 4: MOUSE。トラックボール移動時に自動で有効。
         MOUSE {
+            // 1段目: 押すとレイヤー 0 に戻ってから Q〜P を送る。
             bindings = <
 &to_layer_0 Q      &to_layer_0 W         &to_layer_0 E         &to_layer_0 R           &to_layer_0 T                                                            &to_layer_0 Y      &to_layer_0 U  &to_layer_0 I      &to_layer_0 O    &to_layer_0 P
+// 2段目: 右手側中央は左・中・右クリック（MB1／MB3／MB2）。
 &to_layer_0 A      &to_layer_0 S         &to_layer_0 D         &to_layer_0 F           &to_layer_0 G          &to_layer_0 LS(LG(S))      &to_layer_0 MINUS      &to_layer_0 H      &mkp MB1       &mkp MB3           &mkp MB2         &to_layer_0 SQT
+// 3段目: 押すとレイヤー 0 に戻ってから各キーを送る。
 &to_layer_0 Z      &to_layer_0 X         &to_layer_0 C         &to_layer_0 V           &to_layer_0 B          &to_layer_0 COLON          &to_layer_0 SEMICOLON  &to_layer_0 N      &to_layer_0 M  &to_layer_0 COMMA  &to_layer_0 DOT  &to_layer_0 SLASH
+// 親指列: Esc のみ即時送信、ほかはレイヤー 0 に戻ってから送信。
 &to_layer_0 LCTRL  &to_layer_0 LEFT_WIN  &to_layer_0 LEFT_ALT  &to_layer_0 INT_HENKAN  &to_layer_0 LA(GRAVE)  &kp ESC                    &to_layer_0 BACKSPACE  &to_layer_0 ENTER                                                     &to_layer_0 DEL
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
 
+        // レイヤー 5: SCROLL。I の長押し中はトラックボールをスクロールにする。
         SCROLL {
+            // すべて下位レイヤーを使用するため、キー配置は変えない。
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
@@ -152,28 +225,41 @@
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                          &trans
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
 
+        // レイヤー 6: Bluetooth 接続先とファームウェア操作。
         layer_6 {
+            // 1段目: Bluetooth プロファイル 0〜4 を選択。
             bindings = <
 &trans  &trans        &trans        &trans        &trans                           &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+// 2段目: すべて下位レイヤーを使用。
 &trans  &trans        &trans        &trans        &trans  &trans      &trans       &trans        &trans        &trans        &trans        &trans
+// 3段目: 1〜3、ブートローダー、現在の Bluetooth プロファイル消去。
 &trans  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &trans  &trans      &bootloader  &trans        &trans        &trans        &trans        &bt BT_CLR
+// 親指列: 最右端で全 Bluetooth プロファイルを消去。
 &trans  &trans        &trans        &trans        &trans  &trans      &trans       &trans                                                  &bt BT_CLR_ALL
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
 
+        // レイヤー 7: レイヤー 0 とほぼ同じ代替基本レイヤー。
         layer_7 {
+            // 1段目: QWERTY と右手の Y〜P。
             bindings = <
 &kp Q      &kp W         &kp E         &kp R                        &kp T                                                         &kp Y        &kp U  &lt 5 I    &kp O    &kp P
+// 2段目: ASDFG と H〜';'。
 &kp A      &kp S         &kp D         &kp F                        &kp G            &kp LS(LG(S))               &kp MINUS        &kp H        &kp J  &kp K      &kp L    &kp SQT
+// 3段目: ZXCVB と N〜/、中央2キーは左右 Shift。
 &kp Z      &kp X         &kp C         &kp V                        &kp B            &kp LEFT_SHIFT              &kp RIGHT_SHIFT  &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
+// 親指列: Ctrl、OS修飾、レイヤー切替、日本語入力、Backspace、Enter、Del。
 &kp LCTRL  &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 1 INT_HENKAN  &lt 3 LA(GRAVE)  &lt_to_layer_0 2 SPACE      &kp BACKSPACE    &lt 4 ENTER                             &kp DEL
             >;
 
+            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
             sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
         };
     };

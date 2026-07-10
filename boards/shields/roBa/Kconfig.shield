@@ -1,5 +1,7 @@
+# 右側シールドを選択したときに有効にする設定。
 config SHIELD_ROBA_R
     def_bool $(shields_list_contains,roBa_R)
 
+# 左側シールドを選択したときに有効にする設定。
 config SHIELD_ROBA_L
     def_bool $(shields_list_contains,roBa_L)

@@ -1,21 +1,28 @@
+# 右側をビルドしたときの既定値。
 if SHIELD_ROBA_R
 
+# ファームウェア名。Bluetooth 接続時などに roBa_R と表示する。
 config ZMK_KEYBOARD_NAME
     default "roBa_R"
 
+# 左右分離キーボードとして動作させる。
 config ZMK_SPLIT
     default y
 
+# 右側を親機（Bluetooth 接続を管理する側）にする。
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
 endif
 
+# 左側をビルドしたときの既定値。
 if SHIELD_ROBA_L
 
+# ファームウェア名。Bluetooth 接続時などに roBa_L と表示する。
 config ZMK_KEYBOARD_NAME
     default "roBa_L"
 
+# 左右分離キーボードとして動作させる。
 config ZMK_SPLIT
     default y
 
