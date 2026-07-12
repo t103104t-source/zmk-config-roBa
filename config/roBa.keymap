@@ -205,9 +205,9 @@
 &trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans                          &kp F12
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         // レイヤー 2: NUM。Space の長押し中に有効。
@@ -222,9 +222,9 @@
 &trans        &kp LESS_THAN  &kp GT        &trans        &trans     &trans         &trans          &trans                                                                     &kp PIPE
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         // レイヤー 3: ARROW。Grave の長押し中に有効。
@@ -239,9 +239,9 @@
 &trans      &trans           &trans  &trans       &trans  &trans      &trans  &trans                                 &trans
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         // レイヤー 4: MOUSE。トラックボール移動時に自動で有効。
@@ -256,9 +256,9 @@
 &to_layer_0 LCTRL  &to_layer_0 LEFT_WIN  &to_layer_0 LEFT_ALT  &to_layer_0 INT_HENKAN  &to_layer_0 LA(GRAVE)  &to_layer_0 SPACE          &to_layer_0 BACKSPACE  &to_layer_0 ENTER                                                     &to_layer_0 DEL
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         // レイヤー 5: SCROLL。I の長押し中はトラックボールをスクロールにする。
@@ -273,9 +273,9 @@
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                          &trans
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         // レイヤー 6: Bluetooth 接続先とファームウェア操作。
@@ -290,9 +290,9 @@
 &trans  &trans        &trans        &trans        &trans  &trans      &trans       &trans                                                  &bt BT_CLR_ALL
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
 
         // レイヤー 7: レイヤー 0 とほぼ同じ代替基本レイヤー。
@@ -307,9 +307,9 @@
 &kp LCTRL  &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 1 INT_HENKAN  &lt 3 LA(GRAVE)  &lt_to_layer_0 2 SPACE      &kp BACKSPACE    &lt 4 ENTER                             &kp DEL
             >;
 
-            // 両エンコーダー: 回転でマウスカーソルを上下へ120移動する。
+            // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
 
-            sensor-bindings = <&inc_dec_msc MOVE_Y(-120) MOVE_Y(120) &inc_dec_msc MOVE_Y(-120) MOVE_Y(120)>;
+            sensor-bindings = <&inc_dec_msc SCRL_DOWN SCRL_UP &inc_dec_msc SCRL_DOWN SCRL_UP>;
         };
     };
 };
