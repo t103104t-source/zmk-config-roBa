@@ -6,6 +6,10 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+
+// ロータリーエンコーダーの短いタップでも十分な量をスクロールする。
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 80
+
 #include <dt-bindings/zmk/pointing.h>
 
 // 修飾キーを長押し／タップで兼用する際の判定を調整する。
