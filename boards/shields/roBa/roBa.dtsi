@@ -131,8 +131,8 @@
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         // B 相は XIAO の D0 に接続する。
         b-gpios = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        // 1周あたりのクリック数。
-        steps = <12>;
+        // 1周あたりのパルス数（12クリック × 2相）。
+        steps = <24>;
         // 左側オーバーレイで有効化するまで無効にしておく。
         status = "disabled";
     };
