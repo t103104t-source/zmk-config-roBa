@@ -149,8 +149,8 @@
         compatible = "zmk,keymap-sensors";
         // 左右エンコーダーを順に登録する。
         sensors = <&left_encoder &right_encoder>;
-        // 1回転あたり何回のトリガーとして扱うか。
-        triggers-per-rotation = <10>;
+        // 1回転あたり12回、各クリックで1回ずつスクロールを発生させる。
+        triggers-per-rotation = <12>;
     };
 
     // 右側のトラックボール入力を受け取るリスナー。
