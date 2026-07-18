@@ -7,10 +7,15 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 
-// ロータリーエンコーダーの短いタップでも十分な量をスクロールする。
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 80
+// 10 ms の生成周期で、各エンコーダーノッチを1目盛りのスクロールにする。
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 
 #include <dt-bindings/zmk/pointing.h>
+
+&msc {
+    // 15 ms のタップ中に1回だけレポートし、高速回転や反転時の滞留を防ぐ。
+    trigger-period-ms = <10>;
+};
 
 // 修飾キーを長押し／タップで兼用する際の判定を調整する。
 
@@ -165,9 +170,9 @@
 
             bindings = <&msc>, <&msc>;
 
-            // 1回の回転後、30 ms の間に追加入力をまとめる。
+            // 10 ms の生成を待ち、2回目の生成前に解除する。
 
-            tap-ms = <30>;
+            tap-ms = <15>;
         };
     };
 
