@@ -6,6 +6,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
 
 // 10 ms の生成周期で、各エンコーダーノッチを1目盛りのスクロールにする。
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
@@ -205,10 +206,10 @@
         // レイヤー 1: FUNCTION。&mo 1 を押している間だけ有効。
 
         FUNCTION {
-            // 1段目: 右手側に F1〜F5。
+            // 1段目: 左手側で出力先を選択し、右手側に F1〜F5。
 
             bindings = <
-&trans  &trans  &trans  &trans  &trans                       &kp F1  &kp F2  &kp F3  &kp F4  &kp F5
+&out OUT_BLE  &out OUT_USB  &out OUT_TOG  &trans  &trans                       &kp F1  &kp F2  &kp F3  &kp F4  &kp F5
 &trans  &trans  &trans  &trans  &trans  &trans      &kp F13  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
 &trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans  &trans  &trans  &trans  &kp F11
 &trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans                          &kp F12
