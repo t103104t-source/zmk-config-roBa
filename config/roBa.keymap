@@ -228,7 +228,7 @@
             bindings = <
 &kp SLASH     &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS                               &kp EXCL   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp DOLLAR     &kp PIPE
 &kp NUMBER_0  &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS  &none       &kp UNDERSCORE  &kp CARET  &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp PERCENT    &kp SLASH
-&kp PERIOD    &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &none       &trans          &kp AT     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp AMPERSAND  &kp BACKSLASH
+&kp COLON     &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &none       &none           &kp AT     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp AMPERSAND  &kp BACKSLASH
 &trans        &kp LESS_THAN  &kp GT        &trans        &trans     &trans      &trans          &trans                                                                 &kp SEMICOLON
             >;
 
