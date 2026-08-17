@@ -226,10 +226,10 @@
             // 1段目: テンキー上段と記号。
 
             bindings = <
-&kp SLASH     &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS                               &kp LS(NUMBER_1)  &kp LS(N8)         &kp LS(NUMBER_9)  &kp DOLLAR        &kp INT3
-&kp NUMBER_0  &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS  &none       &kp UNDERSCORE  &kp EQUAL         &kp PIPE           &kp RIGHT_BRACE   &kp PERCENT       &kp SLASH
-&kp COLON     &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &none       &none           &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp NON_US_HASH   &kp LS(NUMBER_6)  &kp BACKSLASH
-&trans        &kp LESS_THAN  &kp GT        &trans        &trans     &trans      &trans          &trans                                                                   &kp SEMICOLON
+&kp RS(MINUS)  &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS                               &kp LS(NUMBER_1)  &kp LS(N8)         &kp LS(NUMBER_9)  &kp DOLLAR        &kp K_MUTE
+&kp NUMBER_0   &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS  &none       &kp UNDERSCORE  &kp EQUAL         &kp RIGHT_BRACE    &kp PIPE          &kp PERCENT       &kp SLASH
+&kp COLON      &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &none       &none           &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp NON_US_HASH   &kp LS(NUMBER_6)  &kp INT3
+&trans         &kp LESS_THAN  &kp GT        &trans        &trans     &trans      &trans          &trans                                                                   &kp SEMICOLON
             >;
 
             // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
