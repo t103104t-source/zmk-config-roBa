@@ -192,7 +192,7 @@
             bindings = <
 &kp Q  &kp W         &kp E         &kp R                        &kp T                                                                &kp Y                    &kp U  &kp I      &kp O    &kp P
 &kp A  &kp S         &kp D         &kp F                        &kp G                 &kp LS(LG(S))               &kp MINUS          &kp H                    &kp J  &kp K      &kp L    &kp SLASH
-&kp Z  &kp X         &kp C         &kp V                        &kp B                 &kp LEFT_SHIFT              &kp RIGHT_CONTROL  &kp N                    &kp M  &kp COMMA  &kp DOT  &kp BACKSLASH
+&kp Z  &kp X         &kp C         &kp V                        &kp B                 &kp LEFT_SHIFT              &kp RIGHT_CONTROL  &kp N                    &kp M  &kp COMMA  &kp DOT  &kp PIPE
 &mo 1  &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 3 INT_HENKAN  &mt LEFT_SHIFT GRAVE  &lt_to_layer_0 2 SPACE      &kp BACKSPACE      &mt RIGHT_CONTROL ENTER                             &kp QUESTION
             >;
 
@@ -226,10 +226,10 @@
             // 1段目: テンキー上段と記号。
 
             bindings = <
-&kp SLASH     &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS                               &kp EXCL   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp DOLLAR     &kp PIPE
-&kp NUMBER_0  &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS  &none       &kp UNDERSCORE  &kp CARET  &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp PERCENT    &kp SLASH
-&kp COLON     &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &none       &none           &kp AT     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp AMPERSAND  &kp BACKSLASH
-&trans        &kp LESS_THAN  &kp GT        &trans        &trans     &trans      &trans          &trans                                                                 &kp SEMICOLON
+&kp SLASH     &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS                               &kp LS(NUMBER_1)  &kp LS(N8)         &kp LS(NUMBER_9)  &kp DOLLAR        &kp INT3
+&kp NUMBER_0  &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS  &none       &kp UNDERSCORE  &kp EQUAL         &kp PIPE           &kp RIGHT_BRACE   &kp PERCENT       &kp SLASH
+&kp COLON     &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp ASTRK  &none       &none           &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp NON_US_HASH   &kp LS(NUMBER_6)  &kp BACKSLASH
+&trans        &kp LESS_THAN  &kp GT        &trans        &trans     &trans      &trans          &trans                                                                   &kp SEMICOLON
             >;
 
             // 両エンコーダー: 回転でマウスホイールを上下へスクロールする。
